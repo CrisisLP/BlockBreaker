@@ -1,0 +1,634 @@
+options:
+	world : ASkyBlock	#what is the world name. For using the BlockBreaker?
+	raidus : 10 			#what of size you want for "Automatic Blockbreaker"?
+	dispenser : &cYou not allowed to break the Dispenser...	#The message for, if he trying to break a Dispenser from Blockbreaker.
+	up : &cThis direction you cant use this... Please change the Direction	#If someone try to place the Dispenser Up. will the output this message.
+	chest : &cYou forget chest up from dispenser. #If he forget to place the Chest about Dispenser.
+	gui : &bBlock &9Breaker 	#Chest gui named for clicked on blockbreaker.
+	offline: &6unactive				#For the Chest Gui named while unactive
+	online: &6Active				#For the Chest Gui named while active
+	cactive: &9Click to active it #lore for Active (Dye)
+	cdeactive: &9Click to deactive it.	#Lore for deactive (Dye)
+	fortunelore: &6Upgrade to Fortune	#Lore for Buying the Fortune (I or II or III) is under the code...
+	fortuneprice1 : 100000 #Price for upgrade the fortune I
+	fortuneprice2 : 200000 #Price for upgrade the fortune II
+	fortuneprice3 : 300000 #Price for upgrade the fortune III
+	silktouchlore: &6Upgrade to Silktouch	#Lore for buying the Silktocuh
+	silktouchprice: 1000000 #Price for upgrade the Silktouch
+	blockbreakerlore : &6Buy the Automatic Blockbreaker #Lore for buying the Blockbreaker
+	blockbreakerprice: 5000000 #Price for buying the blockbreaker automatic
+	
+	
+every 1 seconds in "{@world}":
+	loop all players:
+		if {BlockBreaker.%loop-player-1%.s.selfdestory} is true:
+			loop {BlockBreaker::*}:
+				if distance between the loop-player and {BlockBreaker::%loop-player-1%} is smaller than {@size}:
+					make loop-player execute command "/silentcobble"
+						 
+command /silentcobble:
+	trigger:
+		if {BlockBreaker::%{BlockBreaker::%player%}%} is set:
+			set {_loc} to {BlockBreaker::%player%}
+			set {_chest} to block 1 above {_loc}
+			if "%{_chest}%" contains "chest":
+				set {_ziel} to facing of block at {_loc}
+				if "%{_ziel}%" contains "south":
+					set {_target} to block 1 south {_loc}
+				if "%{_ziel}%" contains "east":
+					set {_target} to block 1 east {_loc}
+				if "%{_ziel}%" contains "north":
+					set {_target} to block 1 north {_loc}
+				if "%{_ziel}%" contains "west":
+					set {_target} to block 1 west {_loc}
+				if "%{_ziel}%" contains "below":
+					set {_target} to block 1 below {_loc}
+				if "%{_ziel}%" contains "above":
+					stop
+				if {BlockBreaker.%player%.s.Silktouch} is true:
+					set {_Skip} to true
+				if {_Skip} is not set:
+					if "%{_target}%" contains "lapis_lazuli_ore":
+						set {_random} to random integer between 4 and 8
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of lapis_lazuli to {_chest}
+						set block at {_target} to air
+						stop
+					if "%{_target}%" contains "coal_ore":
+						set {_random} to 1
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of coal to {_chest}
+						set block at {_target} to air
+						stop
+					if "%{_target}%" contains "diamond_ore":
+						set {_random} to 1
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of diamond to {_chest}
+						set block at {_target} to air
+						stop
+					if "%{_target}%" contains "emerald_ore":
+						set {_random} to 1
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of emerald to {_chest}
+						set block at {_target} to air
+						stop
+					if "%{_target}%" contains "redstone_ore":
+						set {_random} to random integer between 4 and 5
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								if chance of 20:
+									set {_random} to {_random}*2
+								else:
+									if chance of 20:
+										set {_random} to {_random}*3
+									else:
+										if chance of 20:
+											set {_random} to {_random}*4
+										else: 
+											set {_random} to {_random}
+						add {_random} of redstone to {_chest}
+						set block at {_target} to air
+						stop
+					if "%{_target}%" contains "dispenser":
+						send "{@Dispenser}"
+						stop
+				add {_target} to {_chest}
+				set block at {_target} to air
+					
+					
+					
+			else:
+				stop
+		
+
+
+on right click on lever:
+	if block behind event-block is dispenser:
+		if {BlockBreaker::%location of block behind event-block%} is set:
+			if {BlockBreaker.%player%.s.selfdestory} is true:
+				set {BlockBreaker.%player%.s.selfdestory} to false
+			set {_chest} to block 1 behind event-block
+			set {_chest} to block 1 above {_chest}
+			if "%{_chest}%" contains "chest":
+				set {_target} to block 1 behind event-block
+				set {_ziel} to facing of block behind event-block
+				if "%{_ziel}%" contains "south":
+					set {_target} to block 1 south {_target}
+				if "%{_ziel}%" contains "east":
+					set {_target} to block 1 east {_target}
+				if "%{_ziel}%" contains "north":
+					set {_target} to block 1 north {_target}
+				if "%{_ziel}%" contains "west":
+					set {_target} to block 1 west {_target}
+				if "%{_ziel}%" contains "below":
+					set {_target} to block 1 below {_target}
+				if "%{_ziel}%" contains "above":
+					send "&c{@up}"
+					stop
+				if {BlockBreaker.%player%.s.Silktouch} is true:
+					set {_Skip} to true
+				if {_Skip} is not set:
+					if "%{_target}%" contains "lapis_lazuli_ore":
+						set {_random} to random integer between 4 and 8
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of lapis_lazuli to {_chest}
+						set block facing of block behind event-block the block behind event-block to air
+						stop
+					if "%{_target}%" contains "coal_ore":#
+						set {_random} to 1
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of coal to {_chest}
+						set block facing of block behind event-block the block behind event-block to air
+						stop
+					if "%{_target}%" contains "diamond_ore":
+						set {_random} to 1
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of diamond to {_chest}
+						set block facing of block behind event-block the block behind event-block to air
+						stop
+					if "%{_target}%" contains "emerald_ore":
+						set {_random} to 1
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of emerald to {_chest}
+						set block facing of block behind event-block the block behind event-block to air
+						stop
+					if "%{_target}%" contains "redstone_ore":
+						set {_random} to random integer between 4 and 5
+						if {BlockBreaker.%player%.s.Fortune} is false:
+							set {_SkipF} to true
+						if {_SkipF} is not set:
+							if {BlockBreaker.%player%.Fortune} is 1:
+								chance of 33:
+									set {_random} to {_random}*2
+							else if {BlockBreaker.%player%.Fortune} is 2:
+								chance of 25:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 25:
+										set {_random} to {_random}*3
+							else if {BlockBreaker.%player%.Fortune} is 3:
+								chance of 20:
+									set {_random} to {_random}*2
+									set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*3
+										set {_already} to true
+								if {_already} is not set:
+									chance of 20:
+										set {_random} to {_random}*4
+										set {_already} to true
+						add {_random} of redstone to {_chest}
+						set block facing of block behind event-block the block behind event-block to air
+						stop
+					if "%{_target}%" contains "dispenser":
+						send "{@dispenser}"
+						stop
+				add {_target} to {_chest}
+				set block facing of block behind event-block the block behind event-block to air
+			else:
+				send "{@chest}"
+			
+on right click on dispenser:
+	if {BlockBreaker::%location of clicked block%} is set:
+		if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.zugreifen} is true:
+			if "%{BlockBreaker::%location of clicked block%}%" contains "%player%":
+				set {_n} to true
+			else:
+				set {_skip} to true
+			if player's held item is lever:
+				stop
+			if player's held item is chest:
+				stop
+			if player is sneaking:
+				cancel event
+				stop
+			cancel event
+			open chest with 2 rows named "{@gui}" to player
+			wait a ticks
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.Fortune} is not set:
+				set {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.Fortune} to 0
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.silktouch} is not set:
+				set {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.silktouch} to 0
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.Fortune} is not set:
+				set {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.Fortune} to false
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.silktouch} is not set:
+				set {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.silktouch} to false
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.selfdestory} is not set:
+				set {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.selfdestory} to 0
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.selfdestory} is not set:
+				set {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.selfdestory} to false
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.Fortune} is 0:
+				format slot 0 of player with book of power 1 named "&9Fortune | Glück" with no nbt with lore "&b{@fortunelore} I||&bPrice: {@fortuneprice1}$" to close
+				format slot 9 of player with red dye named "{@offline}" with lore "{@cactive}||&cYou need buy first." to be unstealable
+			else if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.Fortune} is 1:
+				format slot 0 of player with book of power 1 named "&9Fortune | Glück" with no nbt with lore "&b{@fortunelore} II||&bPrice: {@fortuneprice2}$" to close
+				if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.Fortune} is false:
+					format slot 9 of player with red dye named "{@offline}" with lore "{@cactive}" to close
+				else:
+					format slot 9 of player with green dye named "{@online}" with lore "{@cdeactive}" to close
+			else if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.Fortune} is 2:
+				format slot 0 of player with book of power 1 named "&9Fortune | Glück" with no nbt with lore "&b{@fortunelore} III||&bPrice: {@fortuneprice3}$" to close
+				if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.Fortune} is false:
+					format slot 9 of player with red dye named "{@offline}" with lore "{@cactive}" to close
+				else:
+					format slot 9 of player with green dye named "{@online}" with lore "{@cdeactive}" to close
+			else if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.Fortune} is 3:
+				format slot 0 of player with book of power 1 named "&9Fortune | Glück" with no nbt with lore "&bMax." to be unstealable
+				if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.Fortune} is false:
+					format slot 9 of player with red dye named "{@offline}" with lore "{@cactive}" to close
+				else:
+					format slot 9 of player with green dye named "{@online}" with lore "{@cdeactive}" to close
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.silktouch} is 0:
+				format slot 1 of player with book of power 1 named "&9Silktouch | Behutsamkeit" with no nbt with lore "&b{@silktouchlore}||&bPrice: {@silktouchprice}$" to close
+				format slot 10 of player with red dye named "{@offline}" with lore "{@cactive}||&cYou need buy first." to be unstealable
+			else if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.silktouch} is 1:
+				format slot 1 of player with book of power 1 named "&9Silktouch | Behutsamkeit" with no nbt to be unstealable
+				if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.silktouch} is false:
+					format slot 10 of player with red dye named "{@offline}" with lore "{@cactive}" to close
+				else:
+					format slot 10 of player with green dye named "{@online}" with lore "{@cdeactive}" to close 
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.selfdestory} is 0:
+				format slot 2 of player with dispenser named "&9Automatic Breaker" with lore "{@blockbreakerlore}||&bPrice: {@blockbreakerprice}$" to close
+				format slot 11 of player with red dye named "{@offline}" with lore "{@cactive}||&cYou need buy first." to be unstealable
+			else if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.selfdestory} is 1:
+				format slot 2 of player with dispenser named "&9Automatic Breaker" with lore "&bBreak automatic the blocks!" to be unstealable
+				if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.selfdestory} is false:
+					format slot 11 of player with red dye named "{@offline}" with lore "{@cactive}" to close
+				else:
+					format slot 11 of player with green dye named "{@online}" with lore "{@cdeactive}" to close
+			
+			format slot 8 of player with paper named "&9Zugreifen" with lore "&bDürfen Spieler am Dispenser||&bund Chest zugreifen?" to close
+			if {BlockBreaker.%{BlockBreaker::%location of clicked block%}%.s.zugreifen} is false:
+				format slot 17 of player with red dye named "{@offline}" with lore "&bSpieler dürfen die Schalter||&bund Dispenser nicht Nutzen.||&bKlicke um es Erlauben!" to close
+			else:
+				format slot 17 of player with green dye named "{@online}" with lore "&bSpieler dürfen die Schalter||&bund Dispenser nicht Nutzen.||&bKlicke um es Erlauben!" to close
+		if {_skip} is not set:
+			if "%{BlockBreaker::%location of clicked block%}%" contains "%player%":
+				if player's held item is lever:
+					stop
+				if player's held item is chest:
+					stop
+				if player is sneaking:
+					cancel event
+					stop
+				cancel event
+				open chest with 2 rows named "{@gui}" to player
+				wait a ticks
+				if {BlockBreaker.%player%.Fortune} is not set:
+					set {BlockBreaker.%player%.Fortune} to 0
+				if {BlockBreaker.%player%.silktouch} is not set:
+					set {BlockBreaker.%player%.silktouch} to 0
+				if {BlockBreaker.%player%.s.Fortune} is not set:
+					set {BlockBreaker.%player%.s.Fortune} to false
+				if {BlockBreaker.%player%.s.silktouch} is not set:
+					set {BlockBreaker.%player%.s.silktouch} to false
+				if {BlockBreaker.%player%.selfdestory} is not set:
+					set {BlockBreaker.%player%.selfdestory} to 0
+				if {BlockBreaker.%player%.s.selfdestory} is not set:
+					set {BlockBreaker.%player%.s.selfdestory} to false
+				if {BlockBreaker.%player%.Fortune} is 0:
+					format slot 0 of player with book of power 1 named "&9Fortune | Glück" with no nbt with lore "{@fortunelore} I||&bPrice: {@fortuneprice1}$" to close then run [make player execute command "/blockbreaker upgrade fortune"]
+					format slot 9 of player with red dye named "{@offline}" with lore "{@cactive}||&cNoch nicht erwerbt." to be unstealable
+				else if {BlockBreaker.%player%.Fortune} is 1:
+					format slot 0 of player with book of power 1 named "&9Fortune | Glück" with no nbt with lore "{@fortunelore} II||&bPrice: {@fortuneprice2}$" to close then run [make player execute command "/blockbreaker upgrade fortune"]
+					if {BlockBreaker.%player%.s.Fortune} is false:
+						format slot 9 of player with red dye named "{@offline}" with lore "{@cactive}" to close then run [make player execute command "/blockbreaker turn fortune"]
+					else:
+						format slot 9 of player with green dye named "{@online}" with lore "{@cdeactive}" to close then run [make player execute command "/blockbreaker turn fortune"]
+				else if {BlockBreaker.%player%.Fortune} is 2:
+					format slot 0 of player with book of power 1 named "&9Fortune | Glück" with no nbt with lore "{@fortunelore} III||&bPrice: {@fortuneprice3}$" to close then run [make player execute command "/blockbreaker upgrade fortune"]
+					if {BlockBreaker.%player%.s.Fortune} is false:
+						format slot 9 of player with red dye named "{@offline}" with lore "{@cactive}" to close then run [make player execute command "/blockbreaker turn fortune"]
+					else:
+						format slot 9 of player with green dye named "{@online}" with lore "{@cdeactive}" to close then run [make player execute command "/blockbreaker turn fortune"]
+				else if {BlockBreaker.%player%.Fortune} is 3:
+					format slot 0 of player with book of power 1 named "&9Fortune | Glück" with no nbt with lore "&bMax" to be unstealable
+					if {BlockBreaker.%player%.s.Fortune} is false:
+						format slot 9 of player with red dye named "{@offline}" with lore "{@cactive}" to close then run [make player execute command "/blockbreaker turn fortune"]
+					else:
+						format slot 9 of player with green dye named "{@online}" with lore "{@cdeactive}" to close then run [make player execute command "/blockbreaker turn fortune"]
+				if {BlockBreaker.%player%.silktouch} is 0:
+					format slot 1 of player with book of power 1 named "&9Silktouch | Behutsamkeit" with no nbt with lore "{@silktouchlore}||&bPrice: {@silktouchprice}$" to close then run [make player execute command "/blockbreaker upgrade silktouch"]
+					format slot 10 of player with red dye named "{@offline}" with lore "{@cactive}||&cYou need buy first." to be unstealable
+				else if {BlockBreaker.%player%.silktouch} is 1:
+					format slot 1 of player with book of power 1 named "&9Silktouch | Behutsamkeit" with no nbt with lore "&bMax." to be unstealable
+					if {BlockBreaker.%player%.s.silktouch} is false:
+						format slot 10 of player with red dye named "{@offline}" with lore "{@cactive}" to close then run [make player execute command "/blockbreaker turn silktouch"]
+					else:
+						format slot 10 of player with green dye named "{@online}" with lore "{@cdeactive}" to close then run [make player execute command "/blockbreaker turn silktouch"]
+				if {BlockBreaker.%player%.selfdestory} is 0:
+					format slot 2 of player with dispenser named "&9Automatic Breaker" with lore "{@blockbreakerlore}||&bPrice: {@blockbreakerprice}$" to close then run [make player execute command "/blockbreaker upgrade selfdestory"]
+					format slot 11 of player with red dye named "{@offline}" with lore "{@cactive}||&cYou need buy first." to be unstealable
+				else if {BlockBreaker.%player%.selfdestory} is 1:
+					format slot 2 of player with dispenser named "&9Automatic Breaker" with lore "&bBreak automatic the blocks!" to be unstealable
+					if {BlockBreaker.%player%.s.selfdestory} is false:
+						format slot 11 of player with red dye named "{@offline}" with lore "{@cactive}" to close then run [make player execute command "/blockbreaker turn selfdestory"]
+					else:
+						format slot 11 of player with green dye named "{@online}" with lore "{@cdeactive}" to close then run [make player execute command "/blockbreaker turn selfdestory"]
+				
+				format slot 8 of player with paper named "&9Zugreifen" with lore "&bDürfen Spieler am Dispenser||&bund Chest zugreifen?" to close
+				if {BlockBreaker.%player%.s.zugreifen} is false:
+					format slot 17 of player with red dye named "{@offline}" with lore "&bSpieler dürfen die Schalter||&bund Dispenser nicht Nutzen.||&bKlicke um es Erlauben!" to close then run [make player execute command "/blockbreaker turn zugreifen"]
+				else:
+					format slot 17 of player with green dye named "{@online}" with lore "&bSpieler dürfen die Schalter||&bund Dispenser nicht Nutzen.||&bKlicke um es Erlauben!" to close then run [make player execute command "/blockbreaker turn zugreifen"]
+			else:
+				send "&cSorry, Ask the player, to get the permission for use the BlockBreaker."
+				cancel event
+			
+on place of dispenser:
+	if name of player's tool is "Block Breaker": 
+		set {BlockBreaker::%event-location%} to player
+		set {BlockBreaker::%player%} to location of event-location
+		
+on break of dispenser:
+	if {BlockBreaker::%event-location%} is set:
+		delete {BlockBreaker::%event-location%}
+		delete {BlockBreaker::%player%}
+		wait a ticks
+		loop all entities in radius 10 around player:
+			name of loop-entity isn't set
+			clear loop-entity
+		make console execute command "/blockbreake %player%"
+		give player lever
+		
+command /blockbreake <player>:
+	permission: *
+	trigger:
+		give player-arg dispenser named "Block Breaker"
+		
+command /blockbreaker [<text>] [<text>]:
+	trigger:
+		if arg-1 is "upgrade":
+			if arg-2 is "fortune":
+				if {BlockBreaker.%player%.Fortune} is not set:
+					set {BlockBreaker.%player%.Fortune} to 0
+				if {BlockBreaker.%player%.Fortune} is 0:
+					if player's money is greater than or equal to {@fortuneprice1}:
+						subtract {@fortuneprice1} from player's money
+						set {BlockBreaker.%player%.Fortune} to 1
+						send "&6Sucessfully upgraded to Fortune 1"
+					else:
+						send "&cNot enough money."
+				else if {BlockBreaker.%player%.Fortune} is 1:
+					if player's money is greater than or equal to {@fortuneprice2}:
+						subtract {@fortuneprice2} from player's money
+						set {BlockBreaker.%player%.Fortune} to 2
+						send "&6Sucessfully upgraded to Fortune 2."
+					else:
+						send "&cNot enough money."
+				else if {BlockBreaker.%player%.Fortune} is 2:
+					if player's money is greater than or equal to {@fortuneprice3}:
+						subtract {@fortuneprice3} from player's money
+						set {BlockBreaker.%player%.Fortune} to 3
+						send "&6Sucessfully upgraded to Fortune 3."
+					else:
+						send "&cNot enough money."
+			else if arg-2 is "silktouch":
+				if {BlockBreaker.%player%.silktouch} is not set:
+					set {BlockBreaker.%player%.silktouch} to 0
+				if {BlockBreaker.%player%.silktouch} is 0:
+					if player's money is greater than or equal to {@silktouchprice}:
+						subtract {@silktouchprice} from player's money
+						set {BlockBreaker.%player%.Silktouch} to 1
+						send "&6Sucessfully buying for Silktouch."
+					else:
+						send "&cNot enough money."
+			else if arg-2 is "selfdestory":
+				if {BlockBreaker.%player%.selfdestory} is not set:
+					set {BlockBreaker.%player%.selfdestory} to 0
+				if {BlockBreaker.%player%.selfdestory} is 0:
+					if player's money is greater than or equal to {@blockbreakerprice}:
+						subtract {@blockbreakerprice} from player's money
+						set {BlockBreaker.%player%.selfdestory} to 1
+						send "&6Sucessfully buying for Automatic Breaker."
+					else:
+						send "&cNot enough money."
+		else if arg-1 is "turn":
+			if arg-2 is set:
+				if {BlockBreaker.%player%.s.%arg-2%} is not set:
+					set {BlockBreaker.%player%.s.%arg-2%} to false
+				if {BlockBreaker.%player%.s.%arg-2%} is false:
+					set {BlockBreaker.%player%.s.%arg-2%} to true
+					send "&9Sucessfully %arg-2% turned to on!"
+				else if {BlockBreaker.%player%.s.%arg-2%} is true:
+					set {BlockBreaker.%player%.s.%arg-2%} to false
+					send "&9Sucessfully %arg-2% turned to off."
+								
+on rightclick on anvil:
+	set {anvil.%player%} to true
+		
+on inventory click:
+	if {anvil.%player%} is set:
+		if "%clicked item name%" contains "Block Breaker":
+			send "Sorry. Nope..."
+			cancel event
+		
+on inventory close:
+	delete {anvil.%player%}
+	
